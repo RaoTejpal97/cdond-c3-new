@@ -246,7 +246,8 @@ jobs:
     docker:
       # Docker image here that supports NodeJS
       # - image: circleci/node:13.8.0
-      - image: python:3.9-bullseye
+      # - image: python:3.9-bullseye
+      - image: python:3.10-alpine3.16
     steps:
       # Checkout code from git
       - checkout
