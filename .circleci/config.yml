@@ -1,3 +1,4 @@
+
 version: 2.1
 
 orbs:
@@ -216,7 +217,7 @@ jobs:
       # attach workspace
       - checkout
       - add_ssh_keys:
-          fingerprints: ["b1:bb:c0:19:57:08:99:ec:9f:51:e0:5f:99:46:87:d3"] 
+          fingerprints: ["78:2f:2a:28:be:29:5f:b4:85:76:85:a7:d4:66:e0:7e"] 
       - attach_workspace:
           at: ~/
       - run:
