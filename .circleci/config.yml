@@ -410,7 +410,7 @@ jobs:
             then
                 return 0
             else
-                return 0
+                return 1
             fi
       - run:
           name: Frontend smoke test.
@@ -520,3 +520,5 @@ workflows:
 #           requires: [smoke-test]
 #       - cleanup:
 #           requires: [cloudfront-update]
+
+aws cloudformation deploy  --template-file cloudfront.yml  --stack-name InitialStack  --parameter-overrides WorkflowID=udapeople-kk1j287dhjppmz437
