@@ -353,20 +353,31 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            # your code here
             cd backend
-            npm install --silent
-            npm run build 2>/dev/null
+            npm i
+            npm run build
             cd ..
-            tar -C backend -czvf artifact.tar.gz . 2>/dev/null
-            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
-            cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            ## Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-galaxy install weareinteractive.environment
-            ansible-playbook -i inventory.txt deploy-backend.yml \
-            --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
+            ansible-playbook -i inventory.txt deploy-backend.yml
+            
+            # your code here
+            # cd backend
+            # npm install --silent
+            # npm run build 2>/dev/null
+            # cd ..
+            # tar -C backend -czvf artifact.tar.gz . 2>/dev/null
+            # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
+            # mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+            # cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            # cd .circleci/ansible
+            # cat inventory.txt
+            # ansible-galaxy install weareinteractive.environment
+            # ansible-playbook -i inventory.txt deploy-backend.yml \
+            # --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
       # Here's where you will add some code to rollback on failure
       - destroy_environments:
          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
