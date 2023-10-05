@@ -280,6 +280,8 @@ jobs:
       - run:  curl --insecure https://kvdb.io/GWWgRbTdJyn47ixgVQC3C3/migration_${CIRCLE_WORKFLOW_ID:0:7}     
       - destroy_environments:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
      # Here's where you will add some code to rollback on failure  
 
   deploy-frontend:
@@ -328,7 +330,48 @@ jobs:
       - destroy_environments:
          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}    
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}   
+
+  deploy-backend:
+    docker:
+      # Docker image here that supports Ansible
+      - image: python:3.10-alpine3.16
+    steps:
+      # Checkout code from git
+      - checkout
+      # Add ssh keys with fingerprint
+      - add_ssh_keys:
+          fingerprints:
+            - 'ab:52:25:68:df:4c:3a:d5:48:18:55:d8:f9:3b:df:de'
+      # attach workspace
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update --no-cache tar gzip nodejs npm aws-cli ansible curl
+      - run:
+          name: Deploy backend
+          command: |
+            # your code here
+            cd backend
+            npm install --silent
+            npm run build 2>/dev/null
+            cd ..
+            tar -C backend -czvf artifact.tar.gz . 2>/dev/null
+            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
+            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+            cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-galaxy install weareinteractive.environment
+            ansible-playbook -i inventory.txt deploy-backend.yml \
+            --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
+      # Here's where you will add some code to rollback on failure
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
 #   deploy-frontend:
 #     docker:
@@ -450,8 +493,8 @@ workflows:
           requires: [configure-infrastructure]
       - deploy-frontend:
           requires: [run-migrations]
-#       - deploy-backend:
-#           requires: [run-migrations]
+      - deploy-backend:
+          requires: [run-migrations]
 #       - smoke-test:
 #           requires: [deploy-backend, deploy-frontend]
 #       - cloudfront-update:
