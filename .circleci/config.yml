@@ -375,9 +375,9 @@ jobs:
             # cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
             # cd .circleci/ansible
             # cat inventory.txt
-            # ansible-galaxy install weareinteractive.environment
+            ansible-galaxy install weareinteractive.environment
             # ansible-playbook -i inventory.txt deploy-backend.yml \
-            # --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
+            --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
       # Here's where you will add some code to rollback on failure
       - destroy_environments:
          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
