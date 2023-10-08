@@ -392,7 +392,7 @@ jobs:
           command: |
             # apk add --update curl nodejs npm ansible zip
             apk add --update ansible nodejs npm tar gzip
-            pip install awscli
+            # pip install awscli
             apk update
             apk add tar gzip 
             apk add npm nodejs
