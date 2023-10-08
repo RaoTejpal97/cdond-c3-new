@@ -404,18 +404,18 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            # cd backend
-            # npm install 
-            # npm run build 
-            # cd ..
-            # tar -C backend -czvf artifact.tar.gz . 
-            # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            # mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
-            # cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
-            # cd .circleci/ansible
-            # cat inventory.txt
-            # ansible-galaxy install weareinteractive.environment
-            # ansible-playbook -i inventory.txt deploy-backend.yml 
+            cd backend
+            npm install 
+            npm run build 
+            cd ..
+            tar -C backend -czvf artifact.tar.gz . 
+            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
+            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+            cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            cd .circleci/ansible
+            cat inventory.txt
+            ansible-galaxy install weareinteractive.environment
+            ansible-playbook -i inventory.txt deploy-backend.yml 
             
             
             # your code here
@@ -460,13 +460,14 @@ jobs:
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-            # if curl -s "${API_URL}/api/status" | grep "ok"
+            
             echo curl -s ${API_URL}/api/status | grep "ok"
-            # then
-            #     return 0
-            # else
-            #     return 1
-            # fi
+            if curl -s "${API_URL}/api/status" | grep "ok"
+            then
+                return 0
+            else
+                return 1
+            fi
       - run:
           name: Frontend smoke test.
           command: |
@@ -479,10 +480,10 @@ jobs:
             else
               return 1
             fi
-      - destroy_environments:
-         workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations:
-          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
+      # - destroy_environments:
+      #    workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - revert-migrations:
+      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
 
 #   smoke-test:
