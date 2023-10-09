@@ -21,28 +21,40 @@
   #     pm2 stop default
   #     pm2 start npm -- start
 
-  - name: Copy files
-    become: true
-    copy:
-      src: ~/project/artifact.tar.gz
-      dest: /home/ubuntu/artifact.tar.gz
+  # - name: Copy files
+  #   become: true
+  #   copy:
+  #     src: ~/project/artifact.tar.gz
+  #     dest: /home/ubuntu/artifact.tar.gz
 
   
-  - name: Unarchive
-    become: true
-    shell : |
-        cd /home/ubuntu
-        mkdir backend
-        cd backend
-        tar xvzf artifact.tar.gz -C .
+  # - name: Unarchive
+  #   become: true
+  #   shell : |
+  #       cd /home/ubuntu
+  #       mkdir backend
+  #       cd backend
+  #       tar xvzf artifact.tar.gz -C .
 
-  - name: "run server"
-    become: true
-    shell : |
-        cd /home/ubuntu
-        npm install
-        pm2 stop default
-        pm2 start npm -- start
+  # - name: "run server"
+  #   become: true
+  #   shell : |
+  #       cd /home/ubuntu
+  #       npm install
+  #       pm2 stop default
+  #       pm2 start npm -- start
+
+  - name: extract artifact
+    become: yes
+    unarchive:
+      src: ~/project/artifact.tar.gz
+      dest: .
+  - name: start app
+    become: yes
+    shell: |
+       npm run migrations
+       pm2 delete all
+       export $(grep TYPEORM_HOST /home/ubuntu/.env) && pm2 start npm -- start
 
     environment:
       ENVIRONMENT: production
