@@ -410,18 +410,30 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+
             cd backend
-            npm install 
-            npm run build 
+            npm i
+            npm run build
             cd ..
-            tar -C backend -czvf artifact.tar.gz . 
-            mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
-            mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
-            cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            ## Zip the directory
+            tar -C backend -czvf artifact.tar.gz .
             cd .circleci/ansible
+            echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
-            ansible-galaxy install weareinteractive.environment
-            ansible-playbook -i inventory.txt deploy-backend.yml 
+            ansible-playbook -i inventory.txt deploy-backend.yml
+
+            # cd backend
+            # npm install 
+            # npm run build 
+            # cd ..
+            # tar -C backend -czvf artifact.tar.gz . 
+            # mkdir -p ~/project/.circleci/ansible/roles/deploy/files/
+            # mv artifact.tar.gz .circleci/ansible/roles/deploy/files/artifact.tar.gz
+            # cp ~/project/backend/.env .circleci/ansible/roles/deploy/files/backend.env
+            # cd .circleci/ansible
+            # cat inventory.txt
+            # ansible-galaxy install weareinteractive.environment
+            # ansible-playbook -i inventory.txt deploy-backend.yml 
             
             
             # your code here
