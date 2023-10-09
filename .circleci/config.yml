@@ -396,7 +396,11 @@ jobs:
             apk update
             apk add tar gzip 
             apk add npm nodejs
-            apk add --update ansible aws-cli
+            apk add --update ansible 
+            apk add python curl
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
 
             # sudo apt update
             # sudo apt install software-properties-common -y
