@@ -385,7 +385,7 @@ jobs:
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: 
-             - '78:2f:2a:28:be:29:5f:b4:85:76:85:a7:d4:66:e0:7e'
+             - 'd9:47:1c:c2:86:1e:fd:52:c7:86:f6:42:81:fc:e3:3a'
       # attach workspace
       - attach_workspace:
           at: ~/
@@ -423,7 +423,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-            --key-file C:/Users/divi2/.ssh/udacity.pem -vvvv
+            # --key-file C:/Users/divi2/.ssh/udacity.pem -vvvv
 
             # cd backend
             # npm install 
