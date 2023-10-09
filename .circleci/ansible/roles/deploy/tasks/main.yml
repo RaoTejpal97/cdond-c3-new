@@ -1,39 +1,48 @@
 ---
+  # - name: Copy files
+  #   become: true
+  #   copy:
+  #     src: ~/project/artifact.tar.gz
+  #     dest: ~/web/artifact.tar.gz
+  
+  # - name: Untar artifact 
+  #   shell: |
+  #    cd ~/web
+  #    mkdir backend
+  #    cd backend
+  #    tar -xzvf ../artifact.tar.gz
+
+
+  # - name: Start application
+  #   become: true
+  #   shell: |
+  #     cd ~/web/backend
+  #     npm install
+  #     pm2 stop default
+  #     pm2 start npm -- start
+
   - name: Copy files
     become: true
     copy:
-      src: ~/project/artifact.tar.gz
-      dest: ~/web/artifact.tar.gz
+      src: /root/project/artifact.tar.gz
+      dest: /home/ubuntu/artifact.tar.gz
+
   
-  - name: Untar artifact 
-    shell: |
-     cd ~/web
-     mkdir backend
-     cd backend
-     tar -xzvf ../artifact.tar.gz
-
-
-  - name: Start application
+  - name: Unarchive
     become: true
-    shell: |
-      cd ~/web/backend
-      npm install
-      pm2 stop default
-      pm2 start npm -- start
-  
-  # - name: Unarchive
-  #   become: true
-  #   shell : |
-  #       cd /home/ubuntu/
-  #       tar xvzf artifact.tar.gz -C .
+    shell : |
+        cd /home/ubuntu/
+        mkdir backend
+        cd backend
+        tar xvzf artifact.tar.gz -C .
 
-  # - name: "run server"
-  #   become: true
-  #   shell : |
-  #       cd /home/ubuntu/
-  #       npm install
-  #       pm2 stop default
-  #       pm2 start npm -- start
+  - name: "run server"
+    become: true
+    shell : |
+        cd /home/ubuntu/
+        npm install
+        pm2 stop default
+        pm2 start npm -- start
     environment:
       ENVIRONMENT: production
       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
