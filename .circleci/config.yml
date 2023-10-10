@@ -422,7 +422,7 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-            --key-file .circleci\udacity.pem -vvvv
+            # --key-file .circleci\udacity.pem -vvvv
 
             # cd backend
             # npm install 
