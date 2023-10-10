@@ -417,7 +417,7 @@ jobs:
             apk upgrade
             apk add tar
             apk add gzip
-            apk add --update curl ansible nodejs npm
+            apk add curl ansible nodejs npm
             apk --no-cache add python3 py3-pip
             pip3 install --upgrade pip
             pip3 install --no-cache-dir awscli
