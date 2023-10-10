@@ -235,8 +235,14 @@ jobs:
             # apk add tar gzip 
             # apk add --update ansible aws-cli
             # apk add --update --no-cache tar gzip ansible awscli
-            apk add --update tar gzip ansible
-            pip install awscli
+            # apk add --update tar gzip ansible
+            # pip install awscli
+            apk update 
+            apk upgrade
+            apk add --update ansible
+            apk --no-cache add python3 py3-pip
+            pip3 install --upgrade pip
+            pip3 install --no-cache-dir awscli
             #exit 1
             
       - run:
@@ -256,9 +262,7 @@ jobs:
 
             cd ~/project/.circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml 
-            # --key-file ~/.ssh/id_rsa_ab522568df4c3ad5481855d8f93bdfde -vvvv
-            # cd .circleci/ansible
-            # ansible-playbook -i inventory.txt configure-server.yml
+            
             #exit 1
       # Here's where you will add some code to rollback on failure      
       - destroy_environments:
