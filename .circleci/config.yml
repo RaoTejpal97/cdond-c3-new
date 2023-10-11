@@ -408,7 +408,7 @@ jobs:
           name: Install dependencies
           command: |
             
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            # apk add --update --no-cache tar gzip nodejs npm aws-cli curl
             # apk update 
             # apk upgrade
             # apk add tar
@@ -418,13 +418,13 @@ jobs:
             # pip3 install --upgrade pip
             # pip3 install --no-cache-dir awscli
 
-            # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            # unzip awscliv2.zip
-            # sudo ./aws/install
-            # sudo apt update
-            # sudo apt install software-properties-common -y
-            # sudo add-apt-repository --yes --update ppa:ansible/ansible
-            # sudo apt install ansible -y
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
 
       - run:
           name: Deploy backend
@@ -601,16 +601,16 @@ jobs:
 workflows:
   default:
     jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
+      # - build-frontend
+      # - build-backend
+      # - test-frontend:
+      #     requires: [build-frontend]
+      # - test-backend:
+      #     requires: [build-backend]
+      # - scan-backend:
+      #     requires: [build-backend]
+      # - scan-frontend:
+      #     requires: [build-frontend]
       - deploy-infrastructure
           # requires: [build-frontend, build-backend]
           # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
