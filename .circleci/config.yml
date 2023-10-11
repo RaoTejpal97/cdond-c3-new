@@ -388,45 +388,34 @@ jobs:
   deploy-backend:
     docker:
       # Docker image here that supports Ansible
-      - image: python:3.10-alpine3.16
-      # - image: python:3.11-rc-alpine
+      # - image: python:3.10-alpine3.11
+      - image: python:3.11-rc-alpine
       # - image: cimg/python:3.7-node
     steps:
       # Checkout code from git
       - checkout
-      - restore_cache:
-          keys: [backend-build]
+      
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: ["ce:af:8a:90:9b:fa:10:ef:c0:9c:45:a7:c1:46:cb:45"]
       # attach workspace
       - attach_workspace:
           at: ~/
+      - restore_cache:
+          keys: [backend-build]
       - run:
           name: Install dependencies
           command: |
-            # apk add --update curl nodejs npm ansible zip
-            # apk add --update ansible nodejs npm tar gzip
-            # pip install awscli
-            # apk update
-            # apk add tar gzip 
-            # apk add npm nodejs
-            # apk add --update ansible 
-            # apk add python curl
-            # curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-            # unzip awscli-bundle.zip
-            # ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-
             
-
-            apk update 
-            apk upgrade
-            apk add tar
-            apk add gzip
-            apk add curl ansible nodejs npm
-            apk --no-cache add python3 py3-pip
-            pip3 install --upgrade pip
-            pip3 install --no-cache-dir awscli
+            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            # apk update 
+            # apk upgrade
+            # apk add tar
+            # apk add gzip
+            # apk add curl ansible nodejs npm
+            # apk --no-cache add python3 py3-pip
+            # pip3 install --upgrade pip
+            # pip3 install --no-cache-dir awscli
 
             # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             # unzip awscliv2.zip
@@ -456,7 +445,7 @@ jobs:
             # # --key-file .circleci\udacity.pem -vvvv
 
             cd backend # echo TYPEORM_HOST=$TYPEORM_HOST >> "backend/.env"
-            npm i
+            npm install
             npm run build
             cd ..
             # Zip the directory
