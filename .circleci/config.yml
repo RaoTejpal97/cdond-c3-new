@@ -430,6 +430,8 @@ jobs:
           command: |
 
             cd backend
+            npm update
+            npm cache clean -f
             npm install 
             npm run build 
             # npm run build
