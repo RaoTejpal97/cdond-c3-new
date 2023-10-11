@@ -219,7 +219,7 @@ jobs:
           command: |
             cat ~/project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure
-      - destroy-environment  
+      - destroy_environments  
 
   configure-infrastructure:
     docker:
@@ -254,7 +254,7 @@ jobs:
             ansible-playbook -i inventory.txt configure-server.yml
             # exit 1
       # Here's where you will add some code to rollback on failure   
-      - destroy-environment
+      - destroy_environments
 
   run-migrations:
     docker:
@@ -296,7 +296,7 @@ jobs:
             fi
             # exit 1
      # Here's where you will add some code to rollback on failure  
-      - destroy-environment
+      - destroy_environments
 
   deploy-frontend:
     docker:
@@ -334,7 +334,7 @@ jobs:
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
 
       # Here's where you will add some code to rollback on failure
-      - destroy-environment
+      - destroy_environments
       - revert-migrations
   
   deploy-backend:
@@ -387,7 +387,7 @@ jobs:
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
       # Here's where you will add some code to rollback on failure
-      - destroy-environment
+      - destroy_environments
       - revert-migrations
   
            
