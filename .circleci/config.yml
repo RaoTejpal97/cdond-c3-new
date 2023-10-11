@@ -389,8 +389,9 @@ jobs:
     docker:
       # Docker image here that supports Ansible
       # - image: python:3.10-alpine3.11
-      - image: python:3.11-rc-alpine
+      # - image: python:3.11-rc-alpine
       # - image: cimg/python:3.7-node
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       - checkout
