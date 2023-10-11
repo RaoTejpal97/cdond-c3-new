@@ -418,12 +418,15 @@ jobs:
             # pip3 install --upgrade pip
             # pip3 install --no-cache-dir awscli
 
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
-            sudo apt update
+            # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            # unzip awscliv2.zip
+            # sudo ./aws/install
+            sudo apt-get update
+            sudo apt-get install tar gzip
             sudo apt install software-properties-common -y
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            # sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt-add-repository ppa:ansible/ansible
+            sudo apt-get update
             sudo apt install ansible -y
 
       - run:
