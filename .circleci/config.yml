@@ -427,8 +427,10 @@ jobs:
           command: |
 
             cd backend
-            npm i --force
-            npm run build
+            npm install -g yarn
+            yarn install
+            yarn run build 
+            # npm run build
             cd ..
             ## Zip the directory
             tar -C backend -czvf artifact.tar.gz .
