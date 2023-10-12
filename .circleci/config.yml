@@ -388,8 +388,8 @@ jobs:
   deploy-backend:
     docker:
       # Docker image here that supports Ansible
-      # - image: cimg/node:13.8.0
-      - image: circleci/node:13.8.0
+      - image: cimg/node:13.8.0
+      # - image: circleci/node:13.8.0
       # - image: python:3.10-alpine3.16
       # - image: python:3.11-rc-alpine
       # - image: cimg/python:3.7-node
@@ -406,58 +406,56 @@ jobs:
           at: ~/
       - restore_cache:
           keys: [backend-build]
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-            
-      #       # apk add --update --no-cache tar gzip nodejs npm aws-cli curl
-      #       # apk update 
-      #       # apk upgrade
-      #       # apk add tar
-      #       # apk add gzip
-      #       # apk add curl ansible nodejs npm
-      #       # apk --no-cache add python3 py3-pip
-      #       # pip3 install --upgrade pip
-      #       # pip3 install --no-cache-dir awscli
-
-      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
-      #       sudo apt-get update
-      #       sudo apt-get install tar gzip
-      #       sudo apt-get install software-properties-common -y
-      #       # sudo add-apt-repository --yes --update ppa:ansible/ansible
-      #       # sudo apt-add-repository ppa:ansible/ansible
-      #       # sudo apt-get update
-      #       # sudo apt install ansible -y
-      #       sudo apt-get update
-      #       sudo apt-get install ansible
-
-      # - run:
-      #     name: Install aws dependencies
-      #     command: |
-      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
-      # - run:
-      #     name: Install Ansible
-      #     command: |
-      #       sudo apt update && sudo apt install -y openssh-server openssh-client curl ansible
-
       - run:
           name: Install dependencies
           command: |
-            sudo apt -y update
-            sudo apt install -y tar gzip curl unzip
-            sudo apt install -y software-properties-common
-            sudo apt install -y python3 python3-pip
-            python3 -m pip install --user ansible
+            
+            # apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            # apk update 
+            # apk upgrade
+            # apk add tar
+            # apk add gzip
+            # apk add curl ansible nodejs npm
+            # apk --no-cache add python3 py3-pip
+            # pip3 install --upgrade pip
+            # pip3 install --no-cache-dir awscli
+
+            
+            sudo apt-get update
+            sudo apt-get install tar gzip
+            sudo apt-get install software-properties-common -y
+            # sudo add-apt-repository --yes --update ppa:ansible/ansible
+            # sudo apt-add-repository ppa:ansible/ansible
+            # sudo apt-get update
+            # sudo apt install ansible -y
+            # sudo apt-get update
+            # sudo apt-get install ansible
+
       - run:
-          name: Install aws-cli
+          name: Install aws dependencies
           command: |
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+      - run:
+          name: Install Ansible
+          command: |
+            sudo apt update && sudo apt install -y openssh-server openssh-client curl ansible
+
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       sudo apt -y update
+      #       sudo apt install -y tar gzip curl unzip
+      #       sudo apt install -y software-properties-common
+      #       sudo apt install -y python3 python3-pip
+      #       python3 -m pip install --user ansible
+      # - run:
+      #     name: Install aws-cli
+      #     command: |
+      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      #       unzip awscliv2.zip
+      #       sudo ./aws/install
 
 
       - run:
