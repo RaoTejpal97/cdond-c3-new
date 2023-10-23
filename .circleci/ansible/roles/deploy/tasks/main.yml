@@ -80,7 +80,7 @@
   become: yes
   unarchive:
     src: files/artifact.tar.gz
-    dest: .
+    dest: /home/ubuntu/web/artifact.tar.gz
     
 - name: start app
   become: yes
