@@ -391,11 +391,12 @@ jobs:
     docker:
       # Docker image here that supports Ansible
       # - image: cimg/node:13.8.0
-      - image: circleci/node:13.8.0
+      # - image: circleci/node:13.8.0
       # - image: python:3.10-alpine3.16
       # - image: python:3.11-rc-alpine
       # - image: cimg/python:3.7-node
       # - image: circleci/node:13.8.0
+      - image: python:3.7-alpine3.11
     steps:
       # Checkout code from git
       - checkout
@@ -447,11 +448,13 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt -y update
-            sudo apt install -y tar gzip curl unzip
-            sudo apt install -y software-properties-common
-            sudo apt install -y python3 python3-pip
-            python3 -m pip install --user ansible
+            # sudo apt -y update
+            # sudo apt install -y tar gzip curl unzip
+            # sudo apt install -y software-properties-common
+            # sudo apt install -y python3 python3-pip
+            # python3 -m pip install --user ansible
+            
+            apk add --update ansible curl nodejs npm
       # - run:
       #     name: Install aws-cli
       #     command: |
