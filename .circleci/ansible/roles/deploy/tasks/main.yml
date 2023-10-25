@@ -154,6 +154,24 @@
     name: ['nodejs', 'npm']
     state: latest
     update_cache: yes
+- name: create directory 
+  become: true
+  file: 
+    path: /home/ubuntu/web
+    state: directory
+    mode: 0755
+- name: copy artifact
+  become: true
+  copy: 
+    src: ~/project/artifact.tar.gz
+    dest: /home/ubuntu/web/artifact.tar.gz
+
+- name: Extract artifact files
+  become: true
+  shell: |
+    cd /home/ubuntu/web
+    tar -xvf artifact.tar.gz
+
 - name: install pm2
   become: yes
   npm:
@@ -161,11 +179,6 @@
     global: yes
     state: latest
     production: yes
-- name: extract artifact
-  become: yes
-  unarchive:
-    src: files/artifact.tar.gz
-    dest: .
 
 - name: start app
   become: yes
