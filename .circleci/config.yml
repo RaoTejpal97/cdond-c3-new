@@ -315,7 +315,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: [d6:18:ff:f1:1f:25:8b:23:3b:ad:f6:9f:67:5c:07:ed]
+          fingerprints: [12:02:aa:72:de:75:ff:28:4e:8f:ab:5d:7a:b7:f0:e5]
       - attach_workspace:
           at: ./workspace
       - run:
@@ -370,7 +370,8 @@ jobs:
             if grep -q "No migrations are pending" ~/project/backend/migrations_dump.txt
             then
               # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
-                curl https://kvdb.io/NAzT2rdqdPnVW86euEuics/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+                echo "https://kvdb.io/XoYLaDjsa6ZqAExw88q5PR/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'"
+                curl https://kvdb.io/XoYLaDjsa6ZqAExw88q5PR/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
            
       - destroy_environments:
@@ -446,7 +447,7 @@ jobs:
       - install_ansible
       - install_nodejs
       - add_ssh_keys:
-          fingerprints: [d6:18:ff:f1:1f:25:8b:23:3b:ad:f6:9f:67:5c:07:ed]
+          fingerprints: [12:02:aa:72:de:75:ff:28:4e:8f:ab:5d:7a:b7:f0:e5]
       - attach_workspace:
           at: ~/
       - restore_cache:
