@@ -221,6 +221,7 @@ jobs:
       - run:
           name: Ensure back-end infrastructure exists
           command: |
+            aws cloudformation deploy --template-file cloudfront.yml --stack-name InitialStack --parameter-overrides WorkflowID=udapeople-kk1j287dhjppmz437
             aws cloudformation deploy \
               --template-file .circleci/files/backend.yml \
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
@@ -347,9 +348,9 @@ jobs:
       # - image: circleci/node:13.8.0
       # - image: python:3.9-bullseye
       # - image: python:3.10-alpine3.16
-      - image: circleci/python:3.10
+      # - image: circleci/python:3.10
 
-      # - image: python:3.11-rc-alpine
+      - image: python:3.11-rc-alpine
     steps:
       # Checkout code from git
       - checkout
@@ -635,4 +636,7 @@ workflows:
 #           requires: [smoke-test]
 #       - cleanup:
 #           requires: [cloudfront-update]
+
+
+
 
