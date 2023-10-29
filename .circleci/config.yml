@@ -499,8 +499,8 @@ jobs:
   smoke-test:
     docker:
       # Lightweight Docker image
-      # - image: python:3.10-alpine3.16
-      - image: cimg/base:stable
+      - image: python:3.10-alpine3.16
+      # - image: cimg/base:stable
     steps:
       # Checkout code from git
       - checkout
