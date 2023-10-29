@@ -354,14 +354,14 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      - install_awscli
-      - install_nodejs
+      # - install_awscli
+      # - install_nodejs
       - restore_cache:
           keys: [backend-build]
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+      - run:
+          name: Install dependencies
+          command: |
+            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
       - run:
           name: Run migrations
           command: |
