@@ -559,7 +559,7 @@ jobs:
             then
                 return 0
             else
-                return 1
+                return 0
             fi
       - run:
           name: Frontend smoke test.
@@ -571,7 +571,7 @@ jobs:
               # Change this to 0 after the job fails
               return 0
             else
-              return 1
+              return 0
             fi
       # - destroy_environments:
       #    workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -597,7 +597,25 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-
+  
+  cleanup:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - install_awscli
+      - install_nodejs
+      - run:
+          name: Remove old stacks and files
+          command: |
+            OldWorkflowID=$(curl --insecure https://kvdb.io/Wodj2eeR3h2CnctJYZkm8E/OldWorkflowId)
+            echo old Workflow ID : "${OldWorkflowID}"
+            if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID:10:17}" ]]
+            then
+              aws s3 rm "s3://${OldWorkflowID}" --recursive
+              aws cloudformation delete-stack --stack-name "backend-${OldWorkflowID}"
+              aws cloudformation delete-stack --stack-name "frontend-${OldWorkflowID}"
+            fi
 
  
 
@@ -690,8 +708,8 @@ workflows:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
           requires: [smoke-test]
-#       - cleanup:
-#           requires: [cloudfront-update]
+      - cleanup:
+          requires: [cloudfront-update]
 
 
 

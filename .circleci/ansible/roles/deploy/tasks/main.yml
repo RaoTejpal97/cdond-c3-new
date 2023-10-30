@@ -291,5 +291,5 @@
   shell: |
     cd web
     pm2 delete all
-    pm2 start npm -- start
-    sleep 60
+    pm2 start 'npm start'
+    sleep 160
