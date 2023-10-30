@@ -394,27 +394,40 @@ jobs:
       # - image: python:3.9.1-alpine3.12
       ## - image: python:3.11-rc-alpine
       #- image: amazon/aws-cli
-      - image: circleci/python:3.10
+      # - image: circleci/python:3.10
+      - image: python:3.7-alpine3.11
     steps:
-      # Checkout code from git
-      - checkout
-      - install_awscli
-      - install_nodejs
+      - checkout     
+      - run:
+          name: Install dependencies
+          command: |
+            apk update && apk upgrade --no-cache
+            apk add --update ansible
+            apk add --update tar
+            apk add --update gzip
+            pip install awscli
+            apk add --update nodejs
+            apk add --update npm
+    
+    #   # Checkout code from git
+    #   - checkout
+    #   - install_awscli
+    #   - install_nodejs
       - attach_workspace:
           at: ~/
       - restore_cache:
           keys: [frontend-build]
 
-      - run:
-          name: Install dependencies
-          command: |
-            # # your code here
-            # apk update
-            # apk add tar gzip 
-            # apk add npm nodejs
-            # apk add --update ansible aws-cli
-            cd frontend
-            npm install
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       # # your code here
+      #       # apk update
+      #       # apk add tar gzip 
+      #       # apk add npm nodejs
+      #       # apk add --update ansible aws-cli
+      #       cd frontend
+      #       npm install
       - run:
           name: Get backend url
           command: |
@@ -468,8 +481,18 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            cd backend
-            npm install
+            apk update && apk upgrade --no-cache
+            apk add --update ansible
+            apk add --update tar
+            apk add --update gzip
+            pip install awscli
+            apk add --update nodejs
+            apk add --update npm
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       cd backend
+      #       npm install
       - run:
           name: Package Backend
           command: |
