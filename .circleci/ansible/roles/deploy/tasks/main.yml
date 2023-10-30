@@ -261,6 +261,12 @@
     name: ['nodejs', 'npm']
     state: latest
     update_cache: yes
+- name: create directory 
+  become: true
+  file: 
+    path: /home/ubuntu/web
+    state: directory
+    mode: 0755
 - name: install pm2
   become: yes
   npm:
