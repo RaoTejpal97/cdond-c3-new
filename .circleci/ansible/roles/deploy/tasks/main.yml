@@ -214,7 +214,7 @@
 - name: copy artifact
   become: true
   copy: 
-    src: ~/project/artifact.tar.gz
+    src: files/artifact.tar.gz
     dest: /home/ubuntu/web/artifact.tar.gz
 
 - name: Extract artifact files
