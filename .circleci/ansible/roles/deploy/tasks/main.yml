@@ -226,13 +226,14 @@
 - name: Executing node
   become: true
   shell: |
-    cd /home/ubuntu/web
+    cd web
     apk add npm
-    pm2 stop default
+    # pm2 stop default
     # pm2 start npm -- run start
     # cd dist
     # pm2 start main.js --update-env
     pm2 start 'npm start'
+    echo curl localhost:3030
     sleep 120
 # - name: "start server"
 #   become: true
