@@ -1,243 +1,282 @@
----
-  # - name: Copy files
-  #   become: true
-  #   copy:
-  #     src: ~/project/artifact.tar.gz
-  #     dest: ~/web/artifact.tar.gz
+# ---
+#   # - name: Copy files
+#   #   become: true
+#   #   copy:
+#   #     src: ~/project/artifact.tar.gz
+#   #     dest: ~/web/artifact.tar.gz
   
-  # - name: Untar artifact 
-  #   shell: |
-  #    cd ~/web
-  #    mkdir backend
-  #    cd backend
-  #    tar -xzvf ../artifact.tar.gz
+#   # - name: Untar artifact 
+#   #   shell: |
+#   #    cd ~/web
+#   #    mkdir backend
+#   #    cd backend
+#   #    tar -xzvf ../artifact.tar.gz
 
 
-  # - name: Start application
-  #   become: true
-  #   shell: |
-  #     cd ~/web/backend
-  #     npm install
-  #     pm2 stop default
-  #     pm2 start npm -- start
+#   # - name: Start application
+#   #   become: true
+#   #   shell: |
+#   #     cd ~/web/backend
+#   #     npm install
+#   #     pm2 stop default
+#   #     pm2 start npm -- start
 
-  # - name: Copy files
-  #   become: true
-  #   copy:
-  #     src: ~/project/artifact.tar.gz
-  #     dest: /home/ubuntu/artifact.tar.gz
+#   # - name: Copy files
+#   #   become: true
+#   #   copy:
+#   #     src: ~/project/artifact.tar.gz
+#   #     dest: /home/ubuntu/artifact.tar.gz
 
   
-  # - name: Unarchive
-  #   become: true
-  #   shell : |
-  #       cd /home/ubuntu
-  #       mkdir backend
-  #       cd backend
-  #       tar xvzf artifact.tar.gz -C .
+#   # - name: Unarchive
+#   #   become: true
+#   #   shell : |
+#   #       cd /home/ubuntu
+#   #       mkdir backend
+#   #       cd backend
+#   #       tar xvzf artifact.tar.gz -C .
 
-  # - name: "run server"
-  #   become: true
-  #   shell : |
-  #       cd /home/ubuntu
-  #       npm install
-  #       pm2 stop default
-  #       pm2 start npm -- start
+#   # - name: "run server"
+#   #   become: true
+#   #   shell : |
+#   #       cd /home/ubuntu
+#   #       npm install
+#   #       pm2 stop default
+#   #       pm2 start npm -- start
 
-  # - name: extract artifact
-  #   become: yes
-  #   unarchive:
-  #     src: ~/project/artifact.tar.gz
-  #     dest: .
-  # - name: start app
-  #   become: yes
-  #   shell: |
-  #     #  npm run migrations
-  #     #  pm2 delete all
-  #     #  export $(grep TYPEORM_HOST /home/ubuntu/.env) && pm2 start npm -- start
-  #      cd /home/ubuntu
-  #      npm install
-  #      pm2 stop default
-  #      pm2 start npm -- start
-
-
-
-    # environment:
-    #   ENVIRONMENT: production
-    #   TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
-    #   TYPEORM_MIGRATIONS_DIR: "./migrations"
-    #   TYPEORM_MIGRATIONS: "./migrations/*.js"
-    #   TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
-    #   TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
-    #   TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
-    #   TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
-    #   TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-    #   TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+#   # - name: extract artifact
+#   #   become: yes
+#   #   unarchive:
+#   #     src: ~/project/artifact.tar.gz
+#   #     dest: .
+#   # - name: start app
+#   #   become: yes
+#   #   shell: |
+#   #     #  npm run migrations
+#   #     #  pm2 delete all
+#   #     #  export $(grep TYPEORM_HOST /home/ubuntu/.env) && pm2 start npm -- start
+#   #      cd /home/ubuntu
+#   #      npm install
+#   #      pm2 stop default
+#   #      pm2 start npm -- start
 
 
 
-# - name: extract artifact
-#   become: yes
-#   unarchive:
-#     src: files/artifact.tar.gz
-#     dest: /home/ubuntu/web/artifact.tar.gz
+#     # environment:
+#     #   ENVIRONMENT: production
+#     #   TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+#     #   TYPEORM_MIGRATIONS_DIR: "./migrations"
+#     #   TYPEORM_MIGRATIONS: "./migrations/*.js"
+#     #   TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+#     #   TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+#     #   TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+#     #   TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+#     #   TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+#     #   TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+
+
+
+# # - name: extract artifact
+# #   become: yes
+# #   unarchive:
+# #     src: files/artifact.tar.gz
+# #     dest: /home/ubuntu/web/artifact.tar.gz
     
-# - name: start app
-#   become: yes
-#   shell: |
-#     npm install
-#     pm2 stop all
-#     pm2 start npm --name "udapeople-backend" -- run start
-#   environment:
-#       ENVIRONMENT: production
-#       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
-#       TYPEORM_MIGRATIONS_DIR: "./migrations"
-#       TYPEORM_MIGRATIONS: "./migrations/*.js"
-#       TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
-#       TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
-#       TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
-#       TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
-#       TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
-#       TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
-    
-# - name: "Set pm2 start as service"
-#   become: yes
-#   shell: |
-#     env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
-
-# - name: check pm2 status
-#   become: yes
-#   shell: |
-#     pm2 describe "udapeople-backend"
-#   register: command_output_npm
-# - debug: var=command_output_npm.stdout_lines
-
-
-# - name: create directory 
-#   become: true
-#   file: 
-#     path: /home/ubuntu/web
-#     state: directory
-#     mode: 0755
-# - name: copy artifact
-#   become: true
-#   copy: 
-#     src: ~/project/artifact.tar.gz
-#     dest: /home/ubuntu/web/artifact.tar.gz
-# - name: Extract artifact files
-#   become: true
-#   shell: |
-#     cd /home/ubuntu/web
-#     tar -xvf artifact.tar.gz
-# - name: Executing node
-#   become: true
-#   shell: |
-#     cd /home/ubuntu/web
-#     pm2 stop default
-#     pm2 start npm -- start
-
-
-
-# - name: 'update and upgrade packages.'
-#   become: yes
-#   apt:
-#     upgrade: yes
-#     update_cache: yes
-#     cache_valid_time: 86400
-# - name: remove unneeded deps
-#   become: yes
-#   apt:
-#     autoremove: yes
-# - name: install deps
-#   become: yes
-#   apt:
-#     name: ['nodejs', 'npm']
-#     state: latest
-#     update_cache: yes
-# - name: create directory 
-#   become: true
-#   file: 
-#     path: /home/ubuntu/web
-#     state: directory
-#     mode: 0755
-# - name: copy artifact
-#   become: true
-#   copy: 
-#     src: files/artifact.tar.gz
-#     dest: /home/ubuntu/web/artifact.tar.gz
-
-# - name: Extract artifact files
-#   become: true
-#   shell: |
-#     cd /home/ubuntu/web
-#     tar -xvf artifact.tar.gz
-
-# - name: install pm2
-#   become: yes
-#   npm:
-#     name: pm2
-#     global: yes
-#     state: latest
-#     production: yes
-
 # # - name: start app
 # #   become: yes
 # #   shell: |
-# #     pm2 delete all
+# #     npm install
+# #     pm2 stop all
+# #     pm2 start npm --name "udapeople-backend" -- run start
+# #   environment:
+# #       ENVIRONMENT: production
+# #       TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION') }}"
+# #       TYPEORM_MIGRATIONS_DIR: "./migrations"
+# #       TYPEORM_MIGRATIONS: "./migrations/*.js"
+# #       TYPEORM_ENTITIES: "./modules/domain/**/*.entity.js"
+# #       TYPEORM_HOST: "{{ lookup('env', 'TYPEORM_HOST') }}"
+# #       TYPEORM_PORT: "{{ lookup('env', 'TYPEORM_PORT') }}"
+# #       TYPEORM_USERNAME: "{{ lookup('env', 'TYPEORM_USERNAME') }}"
+# #       TYPEORM_PASSWORD: "{{ lookup('env', 'TYPEORM_PASSWORD') }}"
+# #       TYPEORM_DATABASE: "{{ lookup('env', 'TYPEORM_DATABASE') }}"
+    
+# # - name: "Set pm2 start as service"
+# #   become: yes
+# #   shell: |
+# #     env PATH=$PATH:/usr/local/bin pm2 startup -u ubuntu
+
+# # - name: check pm2 status
+# #   become: yes
+# #   shell: |
+# #     pm2 describe "udapeople-backend"
+# #   register: command_output_npm
+# # - debug: var=command_output_npm.stdout_lines
+
+
+# # - name: create directory 
+# #   become: true
+# #   file: 
+# #     path: /home/ubuntu/web
+# #     state: directory
+# #     mode: 0755
+# # - name: copy artifact
+# #   become: true
+# #   copy: 
+# #     src: ~/project/artifact.tar.gz
+# #     dest: /home/ubuntu/web/artifact.tar.gz
+# # - name: Extract artifact files
+# #   become: true
+# #   shell: |
+# #     cd /home/ubuntu/web
+# #     tar -xvf artifact.tar.gz
+# # - name: Executing node
+# #   become: true
+# #   shell: |
+# #     cd /home/ubuntu/web
+# #     pm2 stop default
 # #     pm2 start npm -- start
 
-# - name: Executing node
+
+
+# # - name: 'update and upgrade packages.'
+# #   become: yes
+# #   apt:
+# #     upgrade: yes
+# #     update_cache: yes
+# #     cache_valid_time: 86400
+# # - name: remove unneeded deps
+# #   become: yes
+# #   apt:
+# #     autoremove: yes
+# # - name: install deps
+# #   become: yes
+# #   apt:
+# #     name: ['nodejs', 'npm']
+# #     state: latest
+# #     update_cache: yes
+# # - name: create directory 
+# #   become: true
+# #   file: 
+# #     path: /home/ubuntu/web
+# #     state: directory
+# #     mode: 0755
+# # - name: copy artifact
+# #   become: true
+# #   copy: 
+# #     src: files/artifact.tar.gz
+# #     dest: /home/ubuntu/web/artifact.tar.gz
+
+# # - name: Extract artifact files
+# #   become: true
+# #   shell: |
+# #     cd /home/ubuntu/web
+# #     tar -xvf artifact.tar.gz
+
+# # - name: install pm2
+# #   become: yes
+# #   npm:
+# #     name: pm2
+# #     global: yes
+# #     state: latest
+# #     production: yes
+
+# # # - name: start app
+# # #   become: yes
+# # #   shell: |
+# # #     pm2 delete all
+# # #     pm2 start npm -- start
+
+# # - name: Executing node
+# #   become: true
+# #   shell: |
+# #     cd /home/ubuntu/web
+# #     apk add npm
+# #     pm2 stop default
+# #     pm2 start npm -- run start
+# #     cd dist
+# #     pm2 start main.js --update-env
+# #     sleep 60
+# # - name: "start server"
+# #   become: true
+# #   command: pm2 start -f ./main.js
+# #   args:
+# #     chdir: /home/ubuntu/web/dist
+
+
+
+# - name: create directory 
+#   become: true
+#   file: 
+#     path: /home/ubuntu/web
+#     state: directory
+#     mode: 0755
+
+# - name: copy artifact
+#   become: true
+#   copy: 
+#     src: files/artifact.tar.gz
+#     dest: /home/ubuntu/web/artifact.tar.gz
+
+# - name: Extract artifact files
 #   become: true
 #   shell: |
 #     cd /home/ubuntu/web
-#     apk add npm
-#     pm2 stop default
-#     pm2 start npm -- run start
-#     cd dist
-#     pm2 start main.js --update-env
-#     sleep 60
-# - name: "start server"
-#   become: true
-#   command: pm2 start -f ./main.js
-#   args:
-#     chdir: /home/ubuntu/web/dist
-
-
-
-- name: create directory 
-  become: true
-  file: 
-    path: /home/ubuntu/web
-    state: directory
-    mode: 0755
-
-- name: copy artifact
-  become: true
-  copy: 
-    src: files/artifact.tar.gz
-    dest: /home/ubuntu/web/artifact.tar.gz
-
-- name: Extract artifact files
-  become: true
-  shell: |
-    cd /home/ubuntu/web
-    tar -xvf artifact.tar.gz
+#     tar -xvf artifact.tar.gz
     
-- name: Executing node
-  become: true
-  shell: |
-    cd web
-    apk add npm
-    # pm2 stop default
-    # pm2 start npm -- run start
-    # cd dist
-    # pm2 start main.js --update-env
-    pm2 start 'npm start'
-    echo curl localhost:3030
-    sleep 120
-# - name: "start server"
+# - name: Executing node
 #   become: true
-#   command: |
-#     pm2 start -f ./main.js
-#   args:
-#     chdir: /home/ubuntu/web/dist
+#   shell: |
+#     cd web
+#     apk add npm
+#     # pm2 stop default
+#     # pm2 start npm -- run start
+#     # cd dist
+#     # pm2 start main.js --update-env
+#     pm2 start 'npm start'
+#     echo curl localhost:3030
+#     sleep 120
+# # - name: "start server"
+# #   become: true
+# #   command: |
+# #     pm2 start -f ./main.js
+# #   args:
+# #     chdir: /home/ubuntu/web/dist
+
+
+
+---
+- name: 'update and upgrade packages.'
+  become: yes
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
+- name: remove unneeded deps
+  become: yes
+  apt:
+    autoremove: yes
+- name: install deps
+  become: yes
+  apt:
+    name: ['nodejs', 'npm']
+    state: latest
+    update_cache: yes
+- name: install pm2
+  become: yes
+  npm:
+    name: pm2
+    global: yes
+    state: latest
+    production: yes
+- name: extract artifact
+  become: yes
+  unarchive:
+    src: files/artifact.tar.gz
+    dest: .
+
+- name: start app
+  become: yes
+  shell: |
+    pm2 delete all
+    pm2 start npm -- start
+    sleep 60
