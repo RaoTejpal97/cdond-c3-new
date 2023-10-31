@@ -25,3 +25,4 @@
   #   TYPEORM_ENTITIES: "{{ lookup('env','TYPEORM_ENTITIES') }}"
   roles:
     - deploy
+    - configure-prometheus-node-exporter
